@@ -1,10 +1,14 @@
+// src/app/app-routing.module.ts
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
+
+const routes: Routes = [
+    { path: 'login', component: UserLoginFormComponent }
+];
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: []
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
