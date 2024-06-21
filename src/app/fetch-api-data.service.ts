@@ -4,15 +4,12 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// Declaring the api url that will provide data for the client app
 const apiUrl = 'https://myflix-2024-e9df13718d8a.herokuapp.com';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchApiDataService {
-  // Inject the HttpClient module to the constructor params
-  // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) { }
 
   private getToken(): string {
@@ -32,7 +29,7 @@ export class FetchApiDataService {
   // Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + '/users', userDetails) // corrected to /users
+    return this.http.post(apiUrl + '/users', userDetails)
       .pipe(catchError(this.handleError));
   }
 
@@ -53,7 +50,7 @@ export class FetchApiDataService {
   }
 
   public getMovieWithTitle(title: string): Observable<any> {
-    return this.http.get(`${apiUrl}/movies/${title}`, { // corrected to /movies/:title
+    return this.http.get(`${apiUrl}/movies/${title}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -63,7 +60,7 @@ export class FetchApiDataService {
   }
 
   public getDirector(directorName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/directors/${directorName}`, { // corrected to /directors/:directorName
+    return this.http.get(`${apiUrl}/directors/${directorName}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -82,8 +79,8 @@ export class FetchApiDataService {
     );
   }
 
-  public addFavoriteMovie(username: string, movieId: string): Observable<any> { // corrected to use username and movieId
-    return this.http.post(`${apiUrl}/users/${username}/movies/${movieId}`, {}, { // corrected to /users/:username/movies/:movieId
+  public addFavoriteMovie(userID: string, title: string): Observable<any> {
+    return this.http.post(`${apiUrl}/users/${userID}/movies/${title}`, {}, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -92,8 +89,8 @@ export class FetchApiDataService {
     );
   }
 
-  public deleteFavoriteMovie(username: string, movieId: string): Observable<any> { // corrected to use username and movieId
-    return this.http.delete(`${apiUrl}/users/${username}/movies/${movieId}`, { // corrected to /users/:username/movies/:movieId
+  public deleteFavoriteMovie(userID: string, title: string): Observable<any> {
+    return this.http.delete(`${apiUrl}/users/${userID}/movies/${title}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -103,7 +100,7 @@ export class FetchApiDataService {
   }
 
   public editUser(userDetails: any): Observable<any> {
-    return this.http.put(`${apiUrl}/users/${userDetails.id}`, userDetails, { // corrected to /users/:userid
+    return this.http.put(`${apiUrl}/users/${userDetails.id}`, userDetails, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -113,7 +110,7 @@ export class FetchApiDataService {
   }
 
   public deleteUser(userID: string): Observable<any> {
-    return this.http.delete(`${apiUrl}/users/${userID}`, { // corrected to /users/:id
+    return this.http.delete(`${apiUrl}/users/${userID}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -122,7 +119,6 @@ export class FetchApiDataService {
     );
   }
 
-  // Non-typed response extraction
   private extractResponseData(res: any): any {
     const body = res;
     return body || {};
