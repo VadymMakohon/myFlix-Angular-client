@@ -1,0 +1,23 @@
+/* src/app/user-login-form/user-login-form.component.scss */
+mat-card {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  button {
+    background-color: #2196f3;
+    color: white;
+    margin-top: 16px;
+  }
+  
+  mat-card-title {
+    margin-bottom: 16px;
+  }
+  
