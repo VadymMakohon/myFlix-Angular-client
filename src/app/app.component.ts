@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
+import { MovieCardComponent } from './movie-card/movie-card.component'; // Ensure this import is correct
 
 @Component({
   selector: 'app-root',
@@ -17,14 +18,21 @@ export class AppComponent {
   // This function opens the user registration dialog
   openUserRegistrationDialog(): void {
     this.dialog.open(UserRegistrationFormComponent, {
-      width: '280px'
+      width: '480px'
     });
   }
 
   // This function opens the user login dialog
   openUserLoginDialog(): void {
     this.dialog.open(UserLoginFormComponent, {
-      width: '280px'
+      width: '480px'
+    });
+  }
+
+  // This function opens the movies dialog
+  openMoviesDialog(): void {
+    this.dialog.open(MovieCardComponent, {
+      width: '500px'
     });
   }
 }

@@ -10,27 +10,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user-login-form.component.scss']
 })
 export class UserLoginFormComponent implements OnInit {
-
   @Input() userData = { Username: '', Password: '' };
 
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   loginUser(): void {
-    this.fetchApiData.userLogin(this.userData).subscribe((result) => {
-      this.dialogRef.close();
-      this.snackBar.open('Login successful', 'OK', {
-        duration: 2000
-      });
-    }, (error) => {
-      this.snackBar.open('Login failed', 'OK', {
-        duration: 2000
-      });
-    });
+    this.fetchApiData.userLogin(this.userData).subscribe(
+      (result) => {
+        console.log(result);
+        localStorage.setItem('user', JSON.stringify(result));
+        this.dialogRef.close();
+        this.snackBar.open('Logged in successfully!', 'OK', {
+          duration: 2000
+        });
+      },
+      (result) => {
+        console.log(result);
+        this.snackBar.open('Login failed. Please try again.', 'OK', {
+          duration: 2000
+        });
+      }
+    );
   }
 }

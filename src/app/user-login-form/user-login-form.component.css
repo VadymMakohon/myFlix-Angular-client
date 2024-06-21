@@ -1,23 +1,21 @@
-/* src/app/user-login-form/user-login-form.component.scss */
+/* Center the card and its content */
 mat-card {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 400px;
+    margin: 0 auto;
     text-align: center;
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  
-  button {
-    background-color: #2196f3;
+}
+
+/* Style the button */
+mat-card-actions {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background-color: blue;
     color: white;
-    margin-top: 16px;
-  }
-  
-  mat-card-title {
-    margin-bottom: 16px;
-  }
-  
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}

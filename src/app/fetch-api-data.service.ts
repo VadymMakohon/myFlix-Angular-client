@@ -32,7 +32,7 @@ export class FetchApiDataService {
   // Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + '/user', userDetails)
+    return this.http.post(apiUrl + '/users', userDetails) // corrected to /users
       .pipe(catchError(this.handleError));
   }
 
@@ -53,7 +53,7 @@ export class FetchApiDataService {
   }
 
   public getMovieWithTitle(title: string): Observable<any> {
-    return this.http.get(`${apiUrl}/movie/${title}`, {
+    return this.http.get(`${apiUrl}/movies/${title}`, { // corrected to /movies/:title
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -63,7 +63,7 @@ export class FetchApiDataService {
   }
 
   public getDirector(directorName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/director/${directorName}`, {
+    return this.http.get(`${apiUrl}/directors/${directorName}`, { // corrected to /directors/:directorName
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -82,8 +82,8 @@ export class FetchApiDataService {
     );
   }
 
-  public addFavoriteMovie(userID: string, title: string): Observable<any> {
-    return this.http.post(`${apiUrl}/user/${userID}/${title}`, {}, {
+  public addFavoriteMovie(username: string, movieId: string): Observable<any> { // corrected to use username and movieId
+    return this.http.post(`${apiUrl}/users/${username}/movies/${movieId}`, {}, { // corrected to /users/:username/movies/:movieId
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -92,8 +92,8 @@ export class FetchApiDataService {
     );
   }
 
-  public deleteFavoriteMovie(userID: string, title: string): Observable<any> {
-    return this.http.delete(`${apiUrl}/user/${userID}/${title}`, {
+  public deleteFavoriteMovie(username: string, movieId: string): Observable<any> { // corrected to use username and movieId
+    return this.http.delete(`${apiUrl}/users/${username}/movies/${movieId}`, { // corrected to /users/:username/movies/:movieId
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -103,7 +103,7 @@ export class FetchApiDataService {
   }
 
   public editUser(userDetails: any): Observable<any> {
-    return this.http.put(`${apiUrl}/user/${userDetails.id}`, userDetails, {
+    return this.http.put(`${apiUrl}/users/${userDetails.id}`, userDetails, { // corrected to /users/:userid
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -113,11 +113,10 @@ export class FetchApiDataService {
   }
 
   public deleteUser(userID: string): Observable<any> {
-    return this.http.delete(`${apiUrl}/user`, {
+    return this.http.delete(`${apiUrl}/users/${userID}`, { // corrected to /users/:id
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
-      }),
-      body: { id: userID }
+      })
     }).pipe(
       map(this.extractResponseData), catchError(this.handleError)
     );
