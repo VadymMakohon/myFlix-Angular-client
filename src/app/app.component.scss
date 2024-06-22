@@ -1,0 +1,30 @@
+  /* src/app/app.component.scss */
+  @use '@angular/material' as mat;
+
+  .welcome-container {
+    @include mat-elevation(2);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .app-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  button {
+    background-color: #2196f3;
+    color: white;
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #2196f3;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    padding: 1rem;
+    @include mat-elevation(2);
+  }
