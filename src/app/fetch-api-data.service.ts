@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 const apiUrl = 'https://myflix-2024-e9df13718d8a.herokuapp.com';
 
@@ -26,15 +25,12 @@ export class FetchApiDataService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  // Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
     return this.http.post(apiUrl + '/users', userDetails)
       .pipe(catchError(this.handleError));
   }
 
   public userLogin(userDetails: any): Observable<any> {
-    console.log(userDetails);
     return this.http.post(`${apiUrl}/login`, userDetails)
       .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
@@ -69,8 +65,8 @@ export class FetchApiDataService {
     );
   }
 
-  public getUserList(): Observable<any> {
-    return this.http.get(`${apiUrl}/users`, {
+  public getUser(userId: string): Observable<any> {
+    return this.http.get(`${apiUrl}/users/${userId}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })

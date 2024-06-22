@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FetchApiDataService } from '../fetch-api-data.service'; // Correct the import path
-import { MatDialogRef } from '@angular/material/dialog';
+import { FetchApiDataService } from '../fetch-api-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -10,24 +11,39 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
 
-  constructor(
-    public fetchApiData: FetchApiDataService,
-    public dialogRef: MatDialogRef<MovieCardComponent>
-  ) { }
+  constructor(private fetchApiData: FetchApiDataService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.getMovies();
   }
 
   getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.movies = resp;
-      console.log(this.movies);
-      return this.movies;
+    this.fetchApiData.getAllMovies().subscribe((response: any) => {
+      this.movies = response;
     });
   }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  showGenre(movie: any): void {
+    // Logic to show genre details
+  }
+
+  showDirector(movie: any): void {
+    // Logic to show director details
+  }
+
+  showDetail(movie: any): void {
+    // Logic to show movie details
+  }
+
+  toggleFavorite(movie: any): void {
+    if (movie.isFavorite) {
+      this.fetchApiData.deleteFavoriteMovie(movie._id, movie.Title).subscribe(() => {
+        movie.isFavorite = false;
+      });
+    } else {
+      this.fetchApiData.addFavoriteMovie(movie._id, movie.Title).subscribe(() => {
+        movie.isFavorite = true;
+      });
+    }
   }
 }

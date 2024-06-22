@@ -20,5 +20,4 @@ export class MessageBoxComponent implements OnInit {
   closeMessageBox(): void {
     this.dialogRef.close();
   }
-
 }
