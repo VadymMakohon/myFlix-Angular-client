@@ -1,7 +1,11 @@
-<!-- src/app/movie-card/movie-card.component.html -->
-<mat-card *ngFor="let movie of movies; let i=index;">
-    <mat-dialog-content>
-        <mat-card-title>{{movie.Title}}</mat-card-title>
-        <mat-card-subtitle><img src={{movie.ImagePath}} /></mat-card-subtitle>
-    </mat-dialog-content>
+<mat-card *ngFor="let movie of movies; let i = index;">
+    <mat-card-header>
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+        <mat-card-subtitle>
+            <img [src]="movie.ImagePath" />
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- You can add more movie details here -->
+    </mat-card-content>
 </mat-card>
