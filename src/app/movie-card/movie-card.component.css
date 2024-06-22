@@ -1,13 +1,33 @@
+.movies-header {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .movies-container {
   overflow-x: auto;
   display: flex;
   padding: 1rem;
+  flex-wrap: nowrap;
+
+  @include mat-elevation(4);
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+  }
 }
 
 .movie-card {
   min-width: 200px;
   margin-right: 1rem;
-  @include mat-elevation(4);
+
+  @media (max-width: 599px) {
+    min-width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 
   mat-card-title, mat-card-subtitle {
     text-align: center;

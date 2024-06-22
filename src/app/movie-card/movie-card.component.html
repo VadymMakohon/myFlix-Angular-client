@@ -1,5 +1,9 @@
-<div class="movies-container" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" fxLayoutWrap="nowrap">
-    <mat-card *ngFor="let movie of movies" class="movie-card">
+<div class="movies-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button color="primary" (click)="logout()">Logout</button>
+</div>
+<div class="movies-container" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" fxLayoutWrap="nowrap"
+    fxLayout.xs="column">
+    <mat-card *ngFor="let movie of movies" class="movie-card" fxFlex="none" fxFlex.xs="100%">
         <mat-card-header>
             <mat-card-title>{{movie.Title}}</mat-card-title>
             <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
