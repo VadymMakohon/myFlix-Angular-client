@@ -1,1 +1,24 @@
 <p>user-profile works!</p>
+<div fxLayout="column" fxLayoutAlign="center center" class="profile-container">
+    <h2>User Profile</h2>
+    <mat-card>
+        <mat-card-content>
+            <form (ngSubmit)="updateUser()">
+                <mat-form-field>
+                    <mat-label>Username</mat-label>
+                    <input matInput [(ngModel)]="user.Username" name="username" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput [(ngModel)]="user.Email" name="email" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Birthday</mat-label>
+                    <input matInput [(ngModel)]="user.Birthday" name="birthday" type="date" required>
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit">Update Profile</button>
+                <button mat-raised-button color="warn" type="button" (click)="deleteUser()">Delete Profile</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

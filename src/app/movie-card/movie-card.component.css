@@ -1,45 +1,26 @@
-button.mat-icon-button {
-  color: white; /* Change the icon color to match the toolbar */
-}
-
-.mat-card {
-  flex: 1 1 auto;
-  justify-content: space-between;
-}
-.heart-icon {
-  flex-grow: 6;
-  text-align: end;
-}
-.heart-icon::after {
-  flex-grow: 6;
-  text-align: end !important;
-}
-.movie-grid {
+.movies-container {
+  overflow-x: auto;
   display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping of movie cards */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  gap: 10px; /* Adjust the gap between cards */
+  padding: 1rem;
 }
 
-.movie-grid .arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  align-self: center;
-}
+.movie-card {
+  min-width: 200px;
+  margin-right: 1rem;
+  @include mat-elevation(4);
 
-.movie-grid .arrow.prev {
-  left: 10px;
-}
+  mat-card-title, mat-card-subtitle {
+    text-align: center;
+  }
 
-.movie-grid .arrow.next {
-  right: 10px;
-  text-align: center;
+  mat-card-image {
+    width: 100%;
+    height: auto;
+  }
+
+  mat-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

@@ -1,0 +1,6 @@
+.welcome-container {
+    text-align: center;
+    padding: 2rem;
+    @include mat-elevation(2);
+  }
+  
