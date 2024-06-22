@@ -15,7 +15,7 @@
           "options": {
             "outputPath": "dist/my-flix-angular-client",
             "index": "src/index.html",
-            "main": "src/main.ts", // Ensure this line is present
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -23,8 +23,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "/public"
+                "input": "public"
               }
             ],
             "styles": [
@@ -83,8 +82,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "/public"
+                "input": "public"
               }
             ],
             "styles": [
@@ -95,11 +93,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "repo": "https://github.com/VadymMakohon/myFlix-Angular-client.git",
-            "branch": "gh-pages"
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
