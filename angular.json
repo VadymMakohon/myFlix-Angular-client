@@ -15,7 +15,7 @@
           "options": {
             "outputPath": "dist/my-flix-angular-client",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/main.ts", // Ensure this line is present
             "polyfills": [
               "zone.js"
             ],
