@@ -6,7 +6,7 @@
   padding: 1rem;
   flex-wrap: nowrap;
 
-  @include mat-elevation(4);
+  @include mat.elevation(4);
 
   @media (max-width: 599px) {
     flex-direction: column;

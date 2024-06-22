@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use '@angular/material/theming' as mat;
 
 // Define the palettes for your theme using the Material Design palettes
 $primary-color: mat.define-palette(mat.$blue-grey-palette);

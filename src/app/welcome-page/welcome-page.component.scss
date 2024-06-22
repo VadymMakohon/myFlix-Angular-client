@@ -1,6 +1,7 @@
+@use '@angular/material' as mat;
+
 .welcome-container {
-    text-align: center;
-    padding: 2rem;
-    @include mat-elevation(2);
-  }
-  
+  @include mat.elevation(2);
+  text-align: center;
+  padding: 2rem;
+}
