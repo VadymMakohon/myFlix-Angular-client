@@ -2,6 +2,8 @@
 
 This is an Angular App which uses the movie api as a backend. With this app you can register or sign in a user and see a list of movies. The user can also favorite movies.
 
+![Screenshot 2024-06-22 at 4 21 30 PM](https://github.com/VadymMakohon/myFlix-Angular-client/assets/138728243/186109d2-f93a-4d9f-bb7e-c2fe629d6fce)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Prerequisites
