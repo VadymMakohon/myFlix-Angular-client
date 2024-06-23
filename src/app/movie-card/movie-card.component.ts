@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
+import { DirectorDialogComponent } from '../director-dialog/director-dialog.component';
+import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-details-dialog.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -17,11 +20,6 @@ export class MovieCardComponent implements OnInit {
     this.getMovies();
   }
 
-  /**
-   * calls the getAllMovies api and sets the value
-   * @param id the movie id
-   */
-
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
@@ -29,15 +27,31 @@ export class MovieCardComponent implements OnInit {
   }
 
   showGenre(movie: any): void {
-    // Logic to show genre details
+    this.dialog.open(GenreDialogComponent, {
+      data: {
+        name: movie.Genre.Name,
+        description: movie.Genre.Description
+      }
+    });
   }
 
   showDirector(movie: any): void {
-    // Logic to show director details
+    this.dialog.open(DirectorDialogComponent, {
+      data: {
+        name: movie.Director.Name,
+        bio: movie.Director.Bio,
+        birth: movie.Director.Birth
+      }
+    });
   }
 
   showDetail(movie: any): void {
-    // Logic to show movie details
+    this.dialog.open(MovieDetailsDialogComponent, {
+      data: {
+        title: movie.Title,
+        description: movie.Description
+      }
+    });
   }
 
   toggleFavorite(movie: any): void {
