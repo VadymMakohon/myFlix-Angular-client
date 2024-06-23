@@ -1,8 +1,8 @@
-
 import { Component } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
 
 /**
  * UserLoginFormComponent handles user login functionality.
@@ -19,7 +19,8 @@ export class UserLoginFormComponent {
   constructor(
     private fetchApiData: FetchApiDataService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<UserLoginFormComponent> // Inject MatDialogRef
   ) { }
 
   /**
@@ -33,6 +34,7 @@ export class UserLoginFormComponent {
       this.snackBar.open('Login successful', 'OK', {
         duration: 2000
       });
+      this.dialogRef.close(); // Close the dialog upon successful login
     }, (error: any) => {
       console.error('Login failed', error);
       this.snackBar.open('Login failed', 'OK', {
