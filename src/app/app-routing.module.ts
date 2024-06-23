@@ -5,9 +5,11 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
-    { path: '', component: WelcomePageComponent },
+    { path: 'welcome', component: WelcomePageComponent },
     { path: 'movies', component: MovieCardComponent },
-    { path: 'profile', component: UserProfileComponent }
+    { path: 'profile', component: UserProfileComponent },
+    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+    { path: '**', redirectTo: 'welcome' } // wildcard route for a 404 page
 ];
 
 @NgModule({
