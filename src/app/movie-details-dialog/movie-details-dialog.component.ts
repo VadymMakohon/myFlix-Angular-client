@@ -3,9 +3,16 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-movie-details-dialog',
-  templateUrl: './movie-details-dialog.component.html',
-  styleUrls: ['./movie-details-dialog.component.scss']
+  template: `
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div mat-dialog-content>
+      <p>{{ data.description }}</p>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+    </div>
+  `
 })
 export class MovieDetailsDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { movie: any }) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { title: string, description: string }) { }
 }
