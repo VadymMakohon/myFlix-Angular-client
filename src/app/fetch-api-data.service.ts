@@ -104,6 +104,22 @@ export class FetchApiDataService {
   }
 
   /**
+   * Fetches a genre by name.
+   * @param genreName The name of the genre.
+   * @returns An observable with the genre details.
+   */
+  public getGenre(genreName: string): Observable<any> {
+    return this.http.get(`${apiUrl}/genre/${genreName}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      })
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
    * Fetches a user by ID.
    * @param userId The ID of the user.
    * @returns An observable with the user details.
