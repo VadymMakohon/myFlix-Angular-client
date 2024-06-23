@@ -6,6 +6,8 @@ This is an Angular App which uses the movie api as a backend. With this app you 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
+## visit live at https://vadymmakohon.github.io/myFlix-Angular-client/
+
 ## Prerequisites
 
 - Install Node.js
