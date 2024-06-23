@@ -17,6 +17,11 @@ export class MovieCardComponent implements OnInit {
     this.getMovies();
   }
 
+  /**
+   * calls the getAllMovies api and sets the value
+   * @param id the movie id
+   */
+
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
