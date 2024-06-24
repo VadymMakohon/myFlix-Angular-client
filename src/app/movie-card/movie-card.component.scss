@@ -1,27 +1,18 @@
 @use '@angular/material' as mat;
 
 .movies-container {
-  overflow-x: auto;
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   padding: 1rem;
-  flex-wrap: nowrap;
-
+  justify-content: center;
   @include mat.elevation(4);
-
-  @media (max-width: 599px) {
-    flex-direction: column;
-  }
 }
 
 .movie-card {
-  min-width: 200px;
-  margin-right: 1rem;
-
-  @media (max-width: 599px) {
-    min-width: 100%;
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
+  background-color: #e9f0f0; // Card background color
+  width: calc((100% / 6) - 16px); // Adjust the width to fit 6 cards per row with a gap
+  margin-bottom: 1rem;
 
   mat-card-title,
   mat-card-subtitle {
@@ -37,5 +28,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 1200px) {
+  .movie-card {
+    width: calc((100% / 3) - 16px); // Adjust the width to fit 3 cards per row on medium screens
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-card {
+    width: calc((100% / 2) - 16px); // Adjust the width to fit 2 cards per row on small screens
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-card {
+    width: 100%; // Adjust the width to fit 1 card per row on extra small screens
   }
 }

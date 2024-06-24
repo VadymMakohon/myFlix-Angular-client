@@ -1,0 +1,11 @@
+.navbar {
+  background-color: #0da9d9; // Customize your navbar color
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

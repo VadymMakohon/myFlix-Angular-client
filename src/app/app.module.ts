@@ -17,11 +17,14 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar'; // Ensure MatToolbarModule is imported
 import { RouterModule, Routes } from '@angular/router';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { GenreDialogComponent } from './genre-dialog/genre-dialog.component';
 import { DirectorDialogComponent } from './director-dialog/director-dialog.component';
 import { MovieDetailsDialogComponent } from './movie-details-dialog/movie-details-dialog.component';
+import { NavbarComponent } from './nav-bar/nav-bar.component';
+import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
 
 const appRoutes: Routes = [
     { path: 'welcome', component: WelcomePageComponent },
@@ -33,6 +36,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        NavbarComponent,
         UserRegistrationFormComponent,
         UserLoginFormComponent,
         MovieCardComponent,
@@ -41,7 +45,8 @@ const appRoutes: Routes = [
         MessageBoxComponent,
         GenreDialogComponent,
         DirectorDialogComponent,
-        MovieDetailsDialogComponent
+        MovieDetailsDialogComponent,
+        FavoriteMoviesComponent
     ],
     imports: [
         RouterModule.forRoot(appRoutes),
@@ -56,7 +61,8 @@ const appRoutes: Routes = [
         MatCardModule,
         MatFormFieldModule,
         MatSnackBarModule,
-        MatIconModule
+        MatIconModule,
+        MatToolbarModule // Added MatToolbarModule to imports
     ],
     providers: [],
     bootstrap: [AppComponent]
