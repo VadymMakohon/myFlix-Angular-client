@@ -33,6 +33,11 @@ button.mat-button:hover {
   background-color: rgb(8, 143, 193);
 }
 
+button+button {
+  margin-left: 1rem;
+  /* Adjust the spacing as needed */
+}
+
 @media all and (max-width: 750px) {
   .welcome-container {
     margin: 16px;

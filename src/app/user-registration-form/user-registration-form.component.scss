@@ -12,13 +12,16 @@ mat-card-actions {
 }
 
 button {
-  background-color: blue;
+  background-color: rgb(215, 97, 226);
   color: white;
   width: 100%;
+}
+
+button+button {
+  margin-left: 1rem;
+  /* Adjust the spacing as needed */
 }
 
 mat-form-field {
   width: 100%;
 }
-
-  
