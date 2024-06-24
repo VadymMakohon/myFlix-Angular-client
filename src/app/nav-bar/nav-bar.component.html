@@ -1,11 +1,16 @@
-<mat-toolbar class="navbar">
-    <a routerLink="/movies">
-        <h2 style="margin-right: 10px;">myFlix App</h2>
-    </a>
-    <span class="example-spacer"></span>
-    <a routerLink="/profile">Profile</a>
-    <a routerLink="/favorites" *ngIf="hasFavorites">Favorites</a>
-    <button mat-icon-button aria-label="Logout" (click)="logoutUser()">
-        <mat-icon>exit_to_app</mat-icon>
-    </button>
+<mat-toolbar color="primary" class="navbar">
+    <a mat-button routerLink="/">myFlix</a>
+    <span class="spacer"></span>
+    <div *ngIf="!user">
+        <a mat-button routerLink="/welcome">Home</a>
+        <a mat-button routerLink="/myfavorites">My Favorites</a>
+        <a mat-button routerLink="/profile">Profile</a>
+        <a mat-button (click)="logoutUser()">Logout</a>
+    </div>
+    <div *ngIf="user">
+        <a mat-button routerLink="/home">Home</a>
+        <a mat-button routerLink="/myfavorites">My Favorites</a>
+        <a mat-button routerLink="/profile">Profile</a>
+        <button mat-button (click)="logoutUser()">Logout</button>
+    </div>
 </mat-toolbar>

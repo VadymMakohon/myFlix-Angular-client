@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
+import { FetchApiDataService } from '../fetch-api-data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  hasFavorites = false;
+  user: any = null;
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -16,14 +16,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.checkFavorites();
-  }
-
-  checkFavorites(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.FavoriteMovies && user.FavoriteMovies.length > 0) {
-      this.hasFavorites = true;
-    }
+    this.user = JSON.parse(localStorage.getItem('user') || 'null');
   }
 
   logoutUser(): void {

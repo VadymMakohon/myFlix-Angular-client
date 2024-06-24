@@ -12,8 +12,12 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 })
 export class FavoriteMoviesComponent implements OnInit {
   favoriteMovies: any[] = [];
+  user: any = {};
 
-  constructor(private fetchApiData: FetchApiDataService, public dialog: MatDialog) { }
+  constructor(
+    private fetchApiData: FetchApiDataService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getFavoriteMovies();
@@ -21,38 +25,43 @@ export class FavoriteMoviesComponent implements OnInit {
 
   getFavoriteMovies(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.fetchApiData.getUser(user.Username).subscribe((response: any) => {
+    this.fetchApiData.getUser(user._id).subscribe((response: any) => {
+      this.user = response;
       this.favoriteMovies = response.FavoriteMovies;
     });
   }
 
-  /**
-   * Open genre dialog
-   * @param genre The genre object
-   */
   openGenreDialog(genre: any): void {
     this.dialog.open(GenreDialogComponent, {
       data: { genre }
     });
   }
 
-  /**
-   * Open director dialog
-   * @param director The director object
-   */
   openDirectorDialog(director: any): void {
     this.dialog.open(DirectorDialogComponent, {
       data: { director }
     });
   }
 
-  /**
-   * Open synopsis dialog
-   * @param description The movie description
-   */
   openSynopsisDialog(description: string): void {
     this.dialog.open(MovieDetailsDialogComponent, {
       data: { description }
+    });
+  }
+
+  isFavorite(movieId: string): boolean {
+    return this.user.FavoriteMovies.includes(movieId);
+  }
+
+  addFavorite(movieId: string): void {
+    this.fetchApiData.addFavoriteMovie(this.user._id, movieId).subscribe((response: any) => {
+      this.getFavoriteMovies();
+    });
+  }
+
+  removeFavorite(movieId: string): void {
+    this.fetchApiData.deleteFavoriteMovie(this.user._id, movieId).subscribe((response: any) => {
+      this.getFavoriteMovies();
     });
   }
 }

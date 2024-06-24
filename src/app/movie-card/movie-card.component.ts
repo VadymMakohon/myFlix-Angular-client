@@ -14,7 +14,11 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
 
-  constructor(private fetchApiData: FetchApiDataService, private dialog: MatDialog, private router: Router) { }
+  constructor(
+    private fetchApiData: FetchApiDataService,
+    private dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getMovies();
@@ -27,6 +31,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   showGenre(movie: any): void {
+    console.log('Genre:', movie.Genre); // Debugging line
     this.dialog.open(GenreDialogComponent, {
       data: {
         name: movie.Genre.Name,
@@ -36,6 +41,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   showDirector(movie: any): void {
+    console.log('Director:', movie.Director); // Debugging line
     this.dialog.open(DirectorDialogComponent, {
       data: {
         name: movie.Director.Name,

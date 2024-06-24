@@ -1,5 +1,3 @@
-// src/app/fetch-api-data.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -114,8 +112,7 @@ export class FetchApiDataService {
         Authorization: `Bearer ${this.getToken()}`,
       })
     }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
+      map(this.extractResponseData), catchError(this.handleError)
     );
   }
 
@@ -125,7 +122,7 @@ export class FetchApiDataService {
    * @returns An observable with the user details.
    */
   public getUser(userId: string): Observable<any> {
-    return this.http.get(`${apiUrl}/users/${userId}`, {
+    return this.http.get(`${apiUrl}/users/id/${userId}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
