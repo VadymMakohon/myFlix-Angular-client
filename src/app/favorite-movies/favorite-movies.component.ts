@@ -1,3 +1,4 @@
+// src/app/favorite-movies/favorite-movies.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,12 +21,17 @@ export class FavoriteMoviesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getFavoriteMovies();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user._id) {
+      this.user = user;
+      this.getFavoriteMovies();
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 
   getFavoriteMovies(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.fetchApiData.getUser(user._id).subscribe((response: any) => {
+    this.fetchApiData.getUser(this.user._id).subscribe((response: any) => {
       this.user = response;
       this.favoriteMovies = response.FavoriteMovies;
     });
@@ -54,13 +60,13 @@ export class FavoriteMoviesComponent implements OnInit {
   }
 
   addFavorite(movieId: string): void {
-    this.fetchApiData.addFavoriteMovie(this.user._id, movieId).subscribe((response: any) => {
+    this.fetchApiData.addFavoriteMovie(this.user._id, movieId).subscribe(() => {
       this.getFavoriteMovies();
     });
   }
 
   removeFavorite(movieId: string): void {
-    this.fetchApiData.deleteFavoriteMovie(this.user._id, movieId).subscribe((response: any) => {
+    this.fetchApiData.deleteFavoriteMovie(this.user._id, movieId).subscribe(() => {
       this.getFavoriteMovies();
     });
   }
