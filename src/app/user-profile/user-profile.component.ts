@@ -31,22 +31,28 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUser(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.fetchApiData.getUser(user._id).subscribe((response: any) => {
-      this.user = response;
-      this.profileForm.setValue({
-        Username: this.user.Username,
-        Password: '',
-        Email: this.user.Email,
-        Birthdate: this.user.Birthdate.slice(0, 10)
-      });
-      this.getFavoriteMovies();
-    });
+    const user = localStorage.getItem('user');
+    const username = user ? JSON.parse(user).Username : null;
+    if (username) {
+      this.fetchApiData.getUser(username).subscribe(
+        (response: any) => {
+          this.user = response;
+          this.profileForm.setValue({
+            Username: this.user.Username,
+            Password: '',
+            Email: this.user.Email,
+            Birthdate: this.user.Birthdate.slice(0, 10),
+          });
+          this.getFavoriteMovies();
+        },
+      );
+    }
   }
 
   getFavoriteMovies(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.fetchApiData.getUser(user._id).subscribe((response: any) => {
+    const user = localStorage.getItem('user');
+    const username = user ? JSON.parse(user).Username : null;
+    this.fetchApiData.getUser(username).subscribe((response: any) => {
       this.favoriteMovies = response.FavoriteMovies;
     });
   }
