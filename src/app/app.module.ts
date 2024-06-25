@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
     { path: 'movies', component: MovieCardComponent },
     { path: 'profile', component: UserProfileComponent },
     { path: 'favorites', component: FavoriteMoviesComponent },
-    { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
         FormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
+        MatSidenavModule,
         MatInputModule,
         MatButtonModule,
         MatCardModule,
@@ -67,8 +69,8 @@ const appRoutes: Routes = [
         MatSnackBarModule,
         MatIconModule,
         MatToolbarModule,
-        MatListModule, // Add MatListModule
-        ReactiveFormsModule // Add ReactiveFormsModule
+        MatListModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

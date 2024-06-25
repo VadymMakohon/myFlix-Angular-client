@@ -1,6 +1,6 @@
+// src/app/nav-bar/nav-bar.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FetchApiDataService } from '../fetch-api-data.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +8,21 @@ import { FetchApiDataService } from '../fetch-api-data.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  user: any = null;
+  showHeader: boolean = true;
+  user: any = {};
 
-  constructor(
-    public fetchApiData: FetchApiDataService,
-    public router: Router
-  ) { }
+  constructor(private router: Router) {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url === '/welcome') {
+          this.showHeader = false;
+        } else {
+          this.showHeader = true;
+          this.user = JSON.parse(localStorage.getItem('user') || '{}');
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user') || 'null');
