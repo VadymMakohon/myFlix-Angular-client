@@ -1,4 +1,3 @@
-// src/app/favorite-movies/favorite-movies.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +12,7 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 })
 export class FavoriteMoviesComponent implements OnInit {
   favoriteMovies: any[] = [];
+  allMovies: any[] = [];
   user: any = {};
 
   constructor(
@@ -25,6 +25,7 @@ export class FavoriteMoviesComponent implements OnInit {
     if (user && user._id) {
       this.user = user;
       this.getFavoriteMovies();
+      this.getAllMovies();
     } else {
       console.error("User ID is missing. Please log in again.");
     }
@@ -35,6 +36,19 @@ export class FavoriteMoviesComponent implements OnInit {
       this.user = response;
       this.favoriteMovies = response.FavoriteMovies;
     });
+  }
+
+  getAllMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((response: any) => {
+      this.allMovies = response;
+      this.filterFavoriteMovies();
+    });
+  }
+
+  filterFavoriteMovies(): void {
+    this.favoriteMovies = this.allMovies.filter((movie: any) =>
+      this.user.FavoriteMovies.includes(movie._id)
+    );
   }
 
   openGenreDialog(genre: any): void {

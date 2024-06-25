@@ -58,22 +58,40 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateUser(): void {
-    this.fetchApiData.editUser(this.profileForm.value).subscribe((response: any) => {
-      this.snackBar.open('Profile updated successfully', 'OK', {
-        duration: 2000
+    if (this.user._id) {
+      this.fetchApiData.editUser(this.user._id, this.profileForm.value).subscribe((response: any) => {
+        this.snackBar.open('Profile updated successfully', 'OK', {
+          duration: 2000
+        });
+        localStorage.setItem('user', JSON.stringify(response));
+      }, (error) => {
+        console.error('Error updating user:', error);
+        this.snackBar.open('Error updating profile', 'OK', {
+          duration: 2000
+        });
       });
-      localStorage.setItem('user', JSON.stringify(response));
-    });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 
   deleteUser(): void {
-    this.fetchApiData.deleteUser(this.user._id).subscribe(() => {
-      this.snackBar.open('Profile deleted successfully', 'OK', {
-        duration: 2000
+    if (this.user._id) {
+      this.fetchApiData.deleteUser(this.user._id).subscribe(() => {
+        this.snackBar.open('Profile deleted successfully', 'OK', {
+          duration: 2000
+        });
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        window.location.reload();
+      }, (error) => {
+        console.error('Error deleting user:', error);
+        this.snackBar.open('Error deleting profile', 'OK', {
+          duration: 2000
+        });
       });
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      window.location.reload();
-    });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 }

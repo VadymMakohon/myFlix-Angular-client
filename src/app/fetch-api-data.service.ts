@@ -164,12 +164,13 @@ export class FetchApiDataService {
   }
 
   /**
-   * Edits a user's details.
-   * @param userDetails The new user details.
-   * @returns An observable with the server response.
-   */
-  public editUser(userDetails: any): Observable<any> {
-    return this.http.put(`${apiUrl}/users/${userDetails.id}`, userDetails, {
+ * Edits a user's details.
+ * @param userDetails The new user details.
+ * @param userId The ID of the user.
+ * @returns An observable with the server response.
+ */
+  public editUser(userId: string, userDetails: any): Observable<any> {
+    return this.http.put(`${apiUrl}/users/${userId}`, userDetails, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       })
@@ -179,7 +180,7 @@ export class FetchApiDataService {
   }
 
   /**
-   * Deletes a user.
+   * Delete a user.
    * @param userID The ID of the user.
    * @returns An observable with the server response.
    */
