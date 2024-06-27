@@ -31,10 +31,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUser(): void {
-    const user = localStorage.getItem('user');
-    const username = user ? JSON.parse(user).Username : null;
-    if (username) {
-      this.fetchApiData.getUser(username).subscribe(
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user._id) {
+      this.fetchApiData.getUser(user._id).subscribe(
         (response: any) => {
           this.user = response;
           this.profileForm.setValue({
@@ -45,16 +44,23 @@ export class UserProfileComponent implements OnInit {
           });
           this.getFavoriteMovies();
         },
+        (error: any) => {
+          console.error('Error fetching user data:', error);
+        }
       );
+    } else {
+      console.error("User ID is missing. Please log in again.");
     }
   }
 
   getFavoriteMovies(): void {
-    const user = localStorage.getItem('user');
-    const username = user ? JSON.parse(user).Username : null;
-    this.fetchApiData.getUser(username).subscribe((response: any) => {
-      this.favoriteMovies = response.FavoriteMovies;
-    });
+    if (this.user._id) {
+      this.fetchApiData.getUser(this.user._id).subscribe((response: any) => {
+        this.favoriteMovies = response.FavoriteMovies;
+      });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 
   updateUser(): void {

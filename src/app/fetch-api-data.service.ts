@@ -1,3 +1,4 @@
+// fetch-api-data.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -164,11 +165,11 @@ export class FetchApiDataService {
   }
 
   /**
- * Edits a user's details.
- * @param userDetails The new user details.
- * @param userId The ID of the user.
- * @returns An observable with the server response.
- */
+   * Edits a user's details.
+   * @param userId The ID of the user.
+   * @param userDetails The new user details.
+   * @returns An observable with the server response.
+   */
   public editUser(userId: string, userDetails: any): Observable<any> {
     return this.http.put(`${apiUrl}/users/${userId}`, userDetails, {
       headers: new HttpHeaders({

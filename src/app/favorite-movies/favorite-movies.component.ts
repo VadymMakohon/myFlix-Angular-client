@@ -12,7 +12,6 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 })
 export class FavoriteMoviesComponent implements OnInit {
   favoriteMovies: any[] = [];
-  allMovies: any[] = [];
   user: any = {};
 
   constructor(
@@ -25,30 +24,19 @@ export class FavoriteMoviesComponent implements OnInit {
     if (user && user._id) {
       this.user = user;
       this.getFavoriteMovies();
-      this.getAllMovies();
     } else {
       console.error("User ID is missing. Please log in again.");
     }
   }
 
   getFavoriteMovies(): void {
-    this.fetchApiData.getUser(this.user._id).subscribe((response: any) => {
-      this.user = response;
-      this.favoriteMovies = response.FavoriteMovies;
-    });
-  }
-
-  getAllMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((response: any) => {
-      this.allMovies = response;
-      this.filterFavoriteMovies();
-    });
-  }
-
-  filterFavoriteMovies(): void {
-    this.favoriteMovies = this.allMovies.filter((movie: any) =>
-      this.user.FavoriteMovies.includes(movie._id)
-    );
+    if (this.user._id) {
+      this.fetchApiData.getUser(this.user._id).subscribe((response: any) => {
+        this.favoriteMovies = response.FavoriteMovies;
+      });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 
   openGenreDialog(genre: any): void {
@@ -70,18 +58,26 @@ export class FavoriteMoviesComponent implements OnInit {
   }
 
   isFavorite(movieId: string): boolean {
-    return this.user.FavoriteMovies.includes(movieId);
+    return this.favoriteMovies.includes(movieId);
   }
 
   addFavorite(movieId: string): void {
-    this.fetchApiData.addFavoriteMovie(this.user._id, movieId).subscribe(() => {
-      this.getFavoriteMovies();
-    });
+    if (this.user._id) {
+      this.fetchApiData.addFavoriteMovie(this.user._id, movieId).subscribe(() => {
+        this.getFavoriteMovies();
+      });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 
   removeFavorite(movieId: string): void {
-    this.fetchApiData.deleteFavoriteMovie(this.user._id, movieId).subscribe(() => {
-      this.getFavoriteMovies();
-    });
+    if (this.user._id) {
+      this.fetchApiData.deleteFavoriteMovie(this.user._id, movieId).subscribe(() => {
+        this.getFavoriteMovies();
+      });
+    } else {
+      console.error("User ID is missing. Please log in again.");
+    }
   }
 }
