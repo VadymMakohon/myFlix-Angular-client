@@ -1,13 +1,48 @@
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+@include mat.core();
+
+$myFlix-Angular-client-primary: mat.define-palette(mat.$indigo-palette);
+$myFlix-Angular-client-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$myFlix-Angular-client-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$myFlix-Angular-client-theme: mat.define-light-theme((color: (primary: $myFlix-Angular-client-primary,
+        accent: $myFlix-Angular-client-accent,
+        warn: $myFlix-Angular-client-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($myFlix-Angular-client-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --mat-card-title-text-size: 20px;
+  --primary-bg-color: #0d1218;
+  --primar-text-color: #e6e6e6;
+}
 
 html,
 body {
-    height: 100%;
+  min-height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--primary-bg-color);
+  color: var(--primar-text-color);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}

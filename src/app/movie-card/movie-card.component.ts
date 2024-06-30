@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FetchApiDataService } from '../fetch-api-data.service';
+import { FetchApiDataService } from '../fetch-api-data.service'
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MovieDetailDialogComponent } from '../movie-detail-dialog/movie-detail-dialog.component';
 import { Router } from '@angular/router';
-import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
-import { DirectorDialogComponent } from '../director-dialog/director-dialog.component';
-import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-details-dialog.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -13,67 +12,84 @@ import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-detai
 })
 export class MovieCardComponent implements OnInit {
   movies: any[] = [];
-
   constructor(
-    private fetchApiData: FetchApiDataService,
-    private dialog: MatDialog,
-    private router: Router
+    public fetchApiData: FetchApiDataService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
+    const user = localStorage.getItem('user');
+
+    if (!user) {
+      this.router.navigate(['welcome']);
+      return;
+    }
+
     this.getMovies();
   }
 
+  /**
+   * calls the getAllMovies api and sets the value
+   * @param id the movie id
+   */
   getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((response: any) => {
-      this.movies = response;
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+
+      return this.movies;
     });
   }
 
-  showGenre(movie: any): void {
-    console.log('Genre:', movie.Genre); // Debugging line
-    this.dialog.open(GenreDialogComponent, {
+  openGenreDialog(genre: any): void {
+    this.dialog.open(MovieDetailDialogComponent, {
       data: {
-        name: movie.Genre.Name,
-        description: movie.Genre.Description
+        title: genre.Name,
+        content: genre.Description,
       }
-    });
+    })
   }
 
-  showDirector(movie: any): void {
-    console.log('Director:', movie.Director); // Debugging line
-    this.dialog.open(DirectorDialogComponent, {
+  openSynopsisDialog(synopsis: string): void {
+    this.dialog.open(MovieDetailDialogComponent, {
       data: {
-        name: movie.Director.Name,
-        bio: movie.Director.Bio,
-        birth: movie.Director.Birth
+        title: "Description",
+        content: synopsis,
       }
-    });
+    })
   }
 
-  showDetail(movie: any): void {
-    this.dialog.open(MovieDetailsDialogComponent, {
+  openDirectorDialog(director: any): void {
+    this.dialog.open(MovieDetailDialogComponent, {
       data: {
-        title: movie.Title,
-        description: movie.Description
+        title: director.Name,
+        content: director.Bio,
       }
+    })
+  }
+
+  isFavorite(id: string): boolean {
+    return this.fetchApiData.isFavoriteMovie(id)
+  }
+
+  /**
+   * calls the deleteFavoriteMovie api and shows the snackbar if successful
+   * @param id the movie id
+   */
+  removeFavorite(id: string): void {
+    this.fetchApiData.deleteFavoriteMovie(id).subscribe(() => {
+      this.snackBar.open('removed from favorites', 'OK', {
+        duration: 2000
+      })
     });
   }
 
-  toggleFavorite(movie: any): void {
-    if (movie.isFavorite) {
-      this.fetchApiData.deleteFavoriteMovie(movie._id, movie.Title).subscribe(() => {
-        movie.isFavorite = false;
-      });
-    } else {
-      this.fetchApiData.addFavoriteMovie(movie._id, movie.Title).subscribe(() => {
-        movie.isFavorite = true;
-      });
-    }
-  }
-
-  logout(): void {
-    localStorage.clear();
-    this.router.navigate(['welcome']);
+  addFavorite(id: string): void {
+    this.fetchApiData.addFavoriteMovie(id).subscribe(() => {
+      this.snackBar.open('added to favorites', 'OK', {
+        duration: 2000
+      })
+    });
   }
 }
