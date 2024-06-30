@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FetchApiDataService } from '../fetch-api-data.service'
+import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-type User = { _id?: string, Username?: string, Password?: string, Email?: string, FavoriteMovies?: [] }
+type User = { _id?: string, Username?: string, Password?: string, Email?: string, FavoriteMovies?: [] };
 
 @Component({
   selector: 'app-profile-page',
@@ -14,7 +14,7 @@ export class ProfilePageComponent implements OnInit {
   user: User = {};
 
   @Input() userData = { Username: '', Password: '', Email: '' };
-  
+
   constructor(
     public fetchApiData: FetchApiDataService,
     public snackBar: MatSnackBar,
@@ -34,7 +34,7 @@ export class ProfilePageComponent implements OnInit {
       Username: user.Username || "",
       Email: user.Email || "",
       Password: ""
-    }
+    };
   }
 
   getUser(): User {
@@ -43,11 +43,16 @@ export class ProfilePageComponent implements OnInit {
 
   updateUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe((result) => {
-      localStorage.setItem('user', JSON.stringify(result))
+      localStorage.setItem('user', JSON.stringify(result));
       this.user = result;
-      this.snackBar.open('user updated!', 'OK', {
+      this.snackBar.open('User updated!', 'OK', {
         duration: 2000
-      })
-    })
+      });
+    }, (error) => {
+      console.error('Update failed:', error);
+      this.snackBar.open('Something went wrong. Please try again later.', 'OK', {
+        duration: 2000
+      });
+    });
   }
 }
