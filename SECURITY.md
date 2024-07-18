@@ -3,7 +3,7 @@
 
 ## Supported Versions
 
-The Meet App project follows the below version support policy:
+The myFlix-Angular-client project follows the below version support policy:
 
 | Version | Supported          |
 | ------- | ------------------ |
