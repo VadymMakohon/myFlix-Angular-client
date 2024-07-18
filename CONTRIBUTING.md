@@ -2,7 +2,7 @@
 
 Contributions to this project are released to the public under the project's open source license.
 
-Everyone is welcome to contribute to myFlix-client. Contributing doesn’t just mean submitting pull requests—there are many different ways for you to get involved, including answering questions, reporting or triaging issues, and participating in discussions about the project.
+Everyone is welcome to contribute to myFlix-Angular-client. Contributing doesn’t just mean submitting pull requests—there are many different ways for you to get involved, including answering questions, reporting or triaging issues, and participating in discussions about the project.
 
 Before contributing, please read the Contributor Covenant Code of Conduct. By participating, you are expected to uphold this code.
 
